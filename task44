@@ -1,0 +1,39 @@
+'''
+Задание 44:
+
+В ячейке ниже представлен код генерирующий DataFrame, 
+которая состоит всего из 1 столбца. Ваша задача перевести 
+его в one hot вид. Сможете ли вы это сделать без get_dummies?
+
+
+import random
+lst = ['robot'] * 10
+lst += ['human'] * 10
+random.shuffle(lst)
+data = pd.DataFrame({'whoAmI'lst})
+data.head()
+
+'''
+
+import random
+import pandas as pd
+
+# Исходные данные
+lst = ['robot'] * 10
+lst += ['human'] * 10
+random.shuffle(lst)
+data = pd.DataFrame({'whoAmI': lst})
+
+#print(data)
+
+# Преобразование в one-hot без get_dummies
+data['whoAmI_robot'] = (data['whoAmI'] == 'robot')
+data['whoAmI_human'] = (data['whoAmI'] == 'human')
+
+data = data.drop(columns=['whoAmI'])
+
+
+# # Преобразование в one-hot с get_dummies
+# data = pd.get_dummies(data, columns=['whoAmI'])
+
+print(data.head(20))
